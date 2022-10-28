@@ -9,7 +9,7 @@ export const AppContainer = styled.div`
   height: 100%;
 `;
 
-export const ColumnContainer = styled.div`
+export const ListContainer = styled.div`
   background-color: #ebecee;
   width: 300px;
   padding: 8px;
@@ -19,12 +19,12 @@ export const ColumnContainer = styled.div`
   flex-grow: 0;
 `;
 
-export const ColumnTitle = styled.div`
+export const ListTitle = styled.div`
   padding: 6px 16px 12px;
   font-weight: bold;
 `;
 
-export const CardContainer = styled.div`
+export const TaskContainer = styled.div`
   background-color: #fff;
   cursor: pointer;
   border-radius: 3px;

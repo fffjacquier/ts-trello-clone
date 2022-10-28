@@ -1,24 +1,26 @@
 import { createContext, Dispatch, FC, useContext } from "react";
 import { useImmerReducer } from "use-immer";
+import uniqueId from "lodash.uniqueid";
+
 import { Action } from "./actions";
-import { appStateReducer, IAppState, Task } from "./appStateReducer";
+import { appStateReducer, IAppState, Task } from "./reducer";
 
 const appData: IAppState = {
   lists: [
     {
-      id: "0",
+      id: uniqueId(),
       label: "To Do",
-      tasks: [{ id: "a0", label: "Scaffold the chimney app" }],
+      tasks: [{ id: uniqueId(), label: "Scaffold the chimney app" }],
     },
     {
-      id: "1",
+      id: uniqueId(),
       label: "In Progress",
-      tasks: [{ id: "a1", label: "Learning Typescript" }],
+      tasks: [{ id: uniqueId(), label: "Learning Typescript" }],
     },
     {
-      id: "2",
+      id: uniqueId(),
       label: "Done",
-      tasks: [{ id: "a2", label: "Learn React + RTK" }],
+      tasks: [{ id: uniqueId(), label: "Learn React + RTK" }],
     },
   ],
 };

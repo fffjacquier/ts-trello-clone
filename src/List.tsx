@@ -1,23 +1,23 @@
 import { AddNewItem } from "./AddNewItem";
-import { Card } from "./Card";
+import { Task } from "./Task";
 import { addTask } from "./state/actions";
-import { useAppState } from "./state/AppStateContext";
-import { ColumnContainer, ColumnTitle } from "./styles";
+import { useAppState } from "./state/context";
+import { ListContainer, ListTitle } from "./styles";
 
-interface ColumnProps {
+interface ListProps {
   title: string;
   id: string;
 }
 
-export const Column = ({ title, id }: ColumnProps) => {
+export const List = ({ title, id }: ListProps) => {
   const { getTasksByListId, dispatch } = useAppState();
   const cards = getTasksByListId(id);
 
   return (
-    <ColumnContainer>
-      <ColumnTitle>{title}</ColumnTitle>
+    <ListContainer>
+      <ListTitle>{title}</ListTitle>
       {cards.map((card) => (
-        <Card label={card.label} key={card.id} id={card.id} />
+        <Task label={card.label} key={card.id} id={card.id} />
       ))}
 
       <AddNewItem
@@ -25,6 +25,6 @@ export const Column = ({ title, id }: ColumnProps) => {
         onAdd={(text) => dispatch(addTask(text, id))}
         hasDarkFont
       ></AddNewItem>
-    </ColumnContainer>
+    </ListContainer>
   );
 };

@@ -18,12 +18,12 @@ export interface IAppState {
 }
 
 export const appStateReducer = (
-  state: IAppState,
+  draft: IAppState,
   action: Action
 ): IAppState | void => {
   switch (action.type) {
     case "ADD_LIST": {
-      state.lists.push({
+      draft.lists.push({
         id: uniqueId(),
         label: action.payload,
         tasks: [],
@@ -33,7 +33,13 @@ export const appStateReducer = (
 
     case "ADD_TASK": {
       const { label, listId } = action.payload
-      const targetListIndex = findItemIndexById(label, listId);
+      const targetedListIndex = findItemIndexById(draft.lists, listId);
+
+      draft.lists[targetedListIndex].tasks.push({
+        id: uniqueId(),
+        label
+      })
+
 
       break;
     }

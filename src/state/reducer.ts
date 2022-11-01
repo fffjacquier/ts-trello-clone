@@ -1,4 +1,4 @@
-import { findItemIndexById } from "../utils/arrayUtils";
+import { findItemIndexById, moveItem } from "../utils/arrayUtils";
 import { uniqueId } from "../utils/uniqueId";
 import { Action } from "./actions";
 
@@ -32,14 +32,26 @@ export const appStateReducer = (
     }
 
     case "ADD_TASK": {
-      const { label, listId } = action.payload
+      const { label, listId } = action.payload;
       const targetedListIndex = findItemIndexById(draft.lists, listId);
 
       draft.lists[targetedListIndex].tasks.push({
         id: uniqueId(),
-        label
+        label,
       });
+      break;
+    }
 
+    case "MOVE_LIST": {
+      const { draggedId, hoverId } = action.payload;
+      const draggedIndex = findItemIndexById(draft.lists, draggedId);
+      const hoverIndex = findItemIndexById(draft.lists, hoverId);
+      draft.lists = moveItem(draft.lists, draggedIndex, hoverIndex);
+
+      break;
+    }
+
+    default: {
       break;
     }
   }

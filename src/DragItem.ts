@@ -3,5 +3,11 @@ export interface ListDragItem {
   label: string;
   type: "LIST";
 }
+export interface TaskDragItem {
+  id: string;
+  label: string;
+  listId: string
+  type: "TASK";
+}
 
-export interface DragItem extends ListDragItem {}
+export type DragItem = TaskDragItem | ListDragItem

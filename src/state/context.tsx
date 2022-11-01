@@ -1,6 +1,6 @@
 import { createContext, Dispatch, FC, useContext } from "react";
 import { useImmerReducer } from "use-immer";
-import uniqueId from "lodash.uniqueid";
+import { uniqueId } from "../utils/uniqueId";
 
 import { Action } from "./actions";
 import { appStateReducer, IAppState, Task } from "./reducer";

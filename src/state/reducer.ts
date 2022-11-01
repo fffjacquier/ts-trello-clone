@@ -1,5 +1,5 @@
-import uniqueId from "lodash.uniqueid";
 import { findItemIndexById } from "../utils/arrayUtils";
+import { uniqueId } from "../utils/uniqueId";
 import { Action } from "./actions";
 
 export interface Task {
@@ -38,8 +38,7 @@ export const appStateReducer = (
       draft.lists[targetedListIndex].tasks.push({
         id: uniqueId(),
         label
-      })
-
+      });
 
       break;
     }

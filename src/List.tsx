@@ -6,6 +6,7 @@ import { ListContainer, ListTitle } from "./styles";
 import { useRef } from "react";
 import { useItemDrag } from "./utils/useItemDrag";
 import { useDrop } from "react-dnd";
+import { throttle } from "throttle-debounce-ts";
 
 interface ListProps {
   title: string;
@@ -18,15 +19,15 @@ export const List = ({ title, id }: ListProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const { dragRef } = useItemDrag({ type: "LIST", id, label: title });
   const [, drop] = useDrop({
-    accept: 'LIST',
-    hover: () => {
-      if (! draggedItem) return
-      if (draggedItem.type === 'LIST') {
-        if (draggedItem.id === id) return
+    accept: "LIST",
+    hover: throttle(250, () => {
+      if (!draggedItem) return;
+      if (draggedItem.type === "LIST") {
+        if (draggedItem.id === id) return;
 
-        dispatch(moveList(draggedItem.id, id))
+        dispatch(moveList(draggedItem.id, id));
       }
-    }
+    }),
   });
 
   dragRef(drop(ref));

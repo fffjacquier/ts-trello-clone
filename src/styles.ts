@@ -10,11 +10,13 @@ export const AppContainer = styled.div`
 `;
 
 interface DragPreviewContainerProps {
-  isHidden?: boolean
+  isHidden?: boolean;
+  isPreview?: boolean;
 }
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
-  opacity: ${(props) => (props.isHidden) ? 0.2 : 1 };
+  transform: ${(props) => (props.isPreview) ? "rotate(12deg)" : null };
+  opacity: ${(props) => (props.isHidden) ? 0.05 : 1 };
 `;
 
 export const ListContainer = styled(DragPreviewContainer)`
@@ -87,3 +89,28 @@ export const NewItemInput = styled.input`
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
 `;
+
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+`;
+
+type DragPreviewWrapperProps = {
+  position: {
+    x: number
+    y: number
+  }
+}
+
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
+  ({ position: { x, y }}) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`
+    }
+  })
+)<DragPreviewWrapperProps>``;

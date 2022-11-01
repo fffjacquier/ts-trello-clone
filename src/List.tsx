@@ -12,13 +12,14 @@ import { isHidden } from "./utils/isHidden";
 interface ListProps {
   title: string;
   id: string;
+  isPreview?: boolean;
 }
 
-export const List = ({ title, id }: ListProps) => {
+export const List = ({ title, id, isPreview }: ListProps) => {
   const { draggedItem, getTasksByListId, dispatch } = useAppState();
   const cards = getTasksByListId(id);
   const ref = useRef<HTMLDivElement>(null);
-  const { dragRef } = useItemDrag({ type: "LIST", id, label: title });
+  const { drag } = useItemDrag({ type: "LIST", id, label: title });
   const [, drop] = useDrop({
     accept: "LIST",
     hover: throttle(250, () => {
@@ -31,10 +32,10 @@ export const List = ({ title, id }: ListProps) => {
     }),
   });
 
-  dragRef(drop(ref));
+  drag(drop(ref));
 
   return (
-    <ListContainer ref={ref} isHidden={isHidden(draggedItem, "LIST", id)}>
+    <ListContainer ref={ref} isPreview={isPreview} isHidden={isHidden(draggedItem, "LIST", id, isPreview)}>
       <ListTitle>{title}</ListTitle>
       {cards.map((card) => (
         <Task label={card.label} key={card.id} id={card.id} />

@@ -6,6 +6,7 @@ import { Action } from "./actions";
 import { appStateReducer, IAppState, Task } from "./reducer";
 
 const appData: IAppState = {
+  draggedItem: null,
   lists: [
     {
       id: uniqueId(),
@@ -36,13 +37,13 @@ const AppStateContext = createContext<AppStateContextProps>(
 
 export const AppStateProvider: FC<React.PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useImmerReducer(appStateReducer, appData);
-  const { lists } = state;
+  const { lists, draggedItem } = state;
 
   const getTasksByListId = (id: string) =>
     lists.find((list) => list.id === id)?.tasks || [];
 
   return (
-    <AppStateContext.Provider value={{ lists, getTasksByListId, dispatch }}>
+    <AppStateContext.Provider value={{ draggedItem, lists, getTasksByListId, dispatch }}>
       {children}
     </AppStateContext.Provider>
   );

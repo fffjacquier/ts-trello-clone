@@ -9,7 +9,15 @@ export const AppContainer = styled.div`
   height: 100%;
 `;
 
-export const ListContainer = styled.div`
+interface DragPreviewContainerProps {
+  isHidden?: boolean
+}
+
+export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+  opacity: ${(props) => (props.isHidden) ? 0.2 : 1 };
+`;
+
+export const ListContainer = styled(DragPreviewContainer)`
   background-color: #ebecee;
   width: 300px;
   padding: 8px;
@@ -24,7 +32,7 @@ export const ListTitle = styled.div`
   font-weight: bold;
 `;
 
-export const TaskContainer = styled.div`
+export const TaskContainer = styled(DragPreviewContainer)`
   background-color: #fff;
   cursor: pointer;
   border-radius: 3px;

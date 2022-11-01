@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { useItemDrag } from "./utils/useItemDrag";
 import { useDrop } from "react-dnd";
 import { throttle } from "throttle-debounce-ts";
+import { isHidden } from "./utils/isHidden";
 
 interface ListProps {
   title: string;
@@ -33,7 +34,7 @@ export const List = ({ title, id }: ListProps) => {
   dragRef(drop(ref));
 
   return (
-    <ListContainer ref={ref}>
+    <ListContainer ref={ref} isHidden={isHidden(draggedItem, "LIST", id)}>
       <ListTitle>{title}</ListTitle>
       {cards.map((card) => (
         <Task label={card.label} key={card.id} id={card.id} />
